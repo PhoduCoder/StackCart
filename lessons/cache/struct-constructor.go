@@ -28,6 +28,22 @@ func (c *Cache) Set(key string, value string) {
 	c.data[key] = value
 }
 
+func (c *Cache) SetName(name string) {
+	c.name = name
+}
+
+func (c *Cache) GetName() string {
+	return c.name
+}
+
+func (c Cache) SetNameNoPointer(name string) {
+	c.name = name
+}
+
+func (c Cache) GetNameNoPointer() string {
+	return c.name
+}
+
 func (c Cache) SetNoPointer(key string, value string) {
 	c.data[key] = value
 }
@@ -55,12 +71,19 @@ func main() {
 	// provides a clear and consistent way to create instances of the struct.
 
 	cache.Set("app", "ArgoCD")
+	cache.Set("version", "3.0")
+	cache.SetName("ArgocdCache")
 
 	fmt.Println(cache.Get("app"))
 
 	cache.SetNoPointer("app", "Grafana")
 
 	cache.GetNoPointer("app") //(&cache).Get("app") should have been used
+
+	cache.SetNameNoPointer("GrafanaCache")
+	fmt.Println(cache.GetNameNoPointer()) //(&cache).Get("app") should have been used
+
+	fmt.Println(cache.GetName())
 
 	fmt.Println(cache.Get("app"))
 
